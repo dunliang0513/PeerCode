@@ -33,6 +33,7 @@ async def fetch_all_questions(client: AsyncIOMotorClient):
 
 async def create_question(client: AsyncIOMotorClient, question):
     result = await client[COLLECTION_NAME].insert_one(question)
+    print(result)
     return result
 
 
