@@ -85,6 +85,15 @@ async def add_questions_from_leetcode():
     producer.flush()
     return "Successfully added questions from Leetcode"
 
+@router.post("")
+async def add_one_question(question: Question, db: AsyncIOMotorClient = Depends(get_database)):
+    try:
+        result = await create_question(db, question.dict())
+        return result
+    except Exception as e:
+        return e
+
+
 @router.get("/day")
 async def get_question_of_the_day():
     transport = AIOHTTPTransport(url="https://leetcode.com/graphql")
